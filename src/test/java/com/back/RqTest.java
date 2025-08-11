@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RqTest {
+
     @Test
     @DisplayName("getActionName(\"삭제?id=1\") : 삭제")
     void t1() {
@@ -26,4 +27,82 @@ public class RqTest {
 
         assertThat(actionName).isEqualTo("수정");
     }
+
+    @Test
+    @DisplayName("입력값 : \"등록?이름=홍길동\" : getParam(\"이름\"): 홍길동")
+    void t3() {
+
+        Rq rq = new Rq("등록?이름=홍길동");
+
+        String paramValue = rq.getParam("이름", ""); // 홍길동
+
+        assertThat(paramValue).isEqualTo("홍길동");
+    }
+
+    @Test
+    @DisplayName("입력값 : \"등록?고향=서울\" : getParam(\"고향\"): 서울")
+    void t4() {
+
+        Rq rq = new Rq("등록?고향=서울");
+
+        String paramValue = rq.getParam("고향", ""); // 서울
+
+        assertThat(paramValue).isEqualTo("서울");
+    }
+
+    @Test
+    @DisplayName("입력값 : \"등록?고향=서울\" : getParam(\"고향\"): 서울")
+    void t5() {
+
+        Rq rq = new Rq("등록?고향=서울");
+
+        String paramValue = rq.getParam("이름", ""); //
+
+        assertThat(paramValue).isEqualTo("");
+    }
+
+    @Test
+    @DisplayName("입력값 : \"등록?고향=서울&이름=홍길동\" : getParam(\"고향\"): 서울")
+    void t6() {
+
+        Rq rq = new Rq("등록?고향=서울&이름=홍길동");
+
+        String paramValue = rq.getParam("고향", ""); // 서울
+
+        assertThat(paramValue).isEqualTo("서울");
+    }
+
+    @Test
+    @DisplayName("입력값 : \"등록?고향=서울&이름=홍길동\" : getParam(\"이름\"): 홍길동")
+    void t7() {
+
+        Rq rq = new Rq("등록?고향=서울&이름=홍길동");
+
+        String paramValue = rq.getParam("이름", ""); // 홍길동
+
+        assertThat(paramValue).isEqualTo("홍길동");
+    }
+
+    @Test
+    @DisplayName("입력값 : \"등록?고향=서울&이름=홍길동&성별=남자\" : getParam(\"이름\"): 홍길동")
+    void t8() {
+
+        Rq rq = new Rq("등록?고향=서울&이름=홍길동&성별=남자");
+
+        String paramValue = rq.getParam("이름", ""); // 홍길동
+
+        assertThat(paramValue).isEqualTo("홍길동");
+    }
+
+    @Test
+    @DisplayName("입력값 : \"등록?고향=서울&이름=홍길동&성별=남자\" : getParam(\"성별\"): 남자")
+    void t9() {
+
+        Rq rq = new Rq("등록?고향=서울&이름=홍길동&성별=남자");
+
+        String paramValue = rq.getParam("성별", ""); // 남자
+
+        assertThat(paramValue).isEqualTo("남자");
+    }
+
 }

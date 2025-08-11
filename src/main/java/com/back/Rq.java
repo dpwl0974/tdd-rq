@@ -1,5 +1,10 @@
 package com.back;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class Rq {
     private String cmd;
 
@@ -10,8 +15,25 @@ public class Rq {
 
     public String getActionName() {
 
-        // ? 기준 왼쪽을 잘라서 반환하면 된다.
-        // 문자를 자른는 방법? -> gpt한테 물어보자
         return cmd.split("\\?")[0];
+    }
+
+    public String getParam(String inputKey, String defaultValue) {
+
+        Map<String, String> paramMap = new HashMap<>();
+
+        String[] cmdBits = cmd.split("\\?");
+        String queryString = cmdBits[1];
+        String[] queryBits = queryString.split("&");
+
+        paramMap = Arrays.stream(queryBits)
+                .map(param -> param.split("="))
+                .collect(
+                        Collectors.toMap(
+                                bits -> bits[0],
+                                bits -> bits[1]
+                        )
+                );
+        return paramMap.getOrDefault(inputKey, defaultValue);
     }
 }
