@@ -47,7 +47,15 @@ public class Rq {
             return defaultValue;
         };
 
-        return Integer.parseInt(value);
+        //테스트 11번 시도 시 "2번"은 parseInt가 안됨
+        //return Integer.parseInt(value);
+        try {
+
+            return Integer.parseInt(value);
+
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
 
     }
 }
