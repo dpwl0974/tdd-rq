@@ -107,4 +107,17 @@ public class RqTest {
         assertThat(paramValue).isEqualTo("남자");
     }
 
+
+    //숫자형 테스트케이스
+    @Test
+    @DisplayName("입력값 : \"목록?page=1\" : getParam(\"page\"): 1")
+    void t10() {
+
+        Rq rq = new Rq("목록?page=1");
+
+        int paramValue = rq.getParamAsInt("page", -1); //-1 : default 값
+
+        assertThat(paramValue).isEqualTo(1);
+    }
+
 }

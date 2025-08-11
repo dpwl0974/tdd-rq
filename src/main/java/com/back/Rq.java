@@ -36,4 +36,18 @@ public class Rq {
                 );
         return paramMap.getOrDefault(inputKey, defaultValue);
     }
+
+    public int getParamAsInt(String key, int defaultValue) {
+
+
+        String value = getParam(key, "");
+
+        //null 이거나 공백이면
+        if (value.isBlank()) {
+            return defaultValue;
+        };
+
+        return Integer.parseInt(value);
+
+    }
 }
